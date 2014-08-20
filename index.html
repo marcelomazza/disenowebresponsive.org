@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		
+		<title>Diseño Web Responsivo (Traducción de Responsive Web Design de A List Apart)</title>
+		
+		<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+		
+		<link rel="stylesheet" media="all" href="css/inuit_min.css">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+		
+	</head>
+	
+	<body lang="es">
+
+	
+		<h4>25 de Mayo de 2010</h4>
+		
+		<h1>Diseño Web Responsivo (Responsive Web&nbsp;Design)</h1>
+		<h2>Traducción de <a href="http://www.alistapart.com/articles/responsive-web-design/" title="Responsive Web Design">Responsive Web Design</a> de <a href="http://www.alistapart.com/" title="A List Apart">A List Apart</a></h2>
+		
+		<h3>Artículo original por <a href="http://www.alistapart.com/authors/m/emarcotte">Ethan Marcotte</a>. Traducción al español por <a href="http://marcelo-mazza.com.ar">Marcelo Mazza</a>.</h3>
+
+		<p>
+			<cite>El control que los diseñadores conocen en el medio impreso y desean frecuentemente en el medio web, es simplemente una función de las limitaciones de la página impresa. Debemos aceptar el hecho de que la web no tiene esas mismas limitaciones, y diseñar entonces para su flexibilidad. Pero primero, debemos "aceptar el flujo y reflujo de las cosas."
+			</cite>
+		</p>
+		<p>
+			<em>John Allsopp, "<a href="http://www.alistapart.com/articles/dao/">A Dao of Web Design</a>"</em>
+		</p>
+
+		<p>El arquitecto inglés Christopher Wren bromeó alguna vez diciendo que su profesión "apuntaba a la Eternidad", y hay algo atractivo en esa fórmula: a diferencia de la web, que siempre parece estar apuntando al corto plazo, la arquitectura es una disciplina definida por su permanencia. Los cimientos de un edificio definen su plano, que define su estructura, que da forma a la fachada. Cada fase del proceso arquitectónico es más inmutable, más invariable que la anterior. Las decisiones creativas modelan, literalmente, un espacio físico, definiendo la forma en que la gente se moverá a través del mismo por décadas o incluso siglos.</p>
+		<p>Trabajar en la web, sin embargo, es una cuestión completamente diferente. Nuestro trabajo está definido por su transitoriedad, y es a menudo refinado o reemplazado en el lapso de uno o dos años. Las ventanas de ancho inconsistente, las resoluciones de pantalla, las preferencias de los usuarios y las fuentes instaladas son sólo algunos de los intangibles con los que negociamos cuando publicamos nuestro trabajo, y, a través de los años, nos hemos vuelto muy hábiles para ello.</p>
+		<p>Pero el panorama está cambiando, quizás más rápidamente de lo que nos gustaría. Se espera que la navegación mobile supere a la navegación desde una computadora de escritorio entre <a href="http://www.mediapost.com/publications/?fa=Articles.showArticle&amp;art_aid=120590">tres</a> a <a href="http://www.morganstanley.com/institutional/techresearch/mobile_internet_report122009.html">cinco años</a>. Dos de las tres consolas dominantes en materia de videojuegos tienen navegadores web (y <a href="http://www.opera.com/devices/wii/">uno de ellos</a> es verdaderamente excelente). Estamos diseñando para mouses y teclados, para keypads T9, para dispositivos controladores de juegos, para interfaces táctiles. Dentro de poco, nos enfrentaremos con la mayor cantidad de dispositivos, modos de entrada y navegadores con la que nunca antes nos hemos enfrentado.</p>
+		<p>En los últimos años, me he estado reuniendo cada vez con más compañías que solicitan “un sitio para iPhone” como parte de su proyecto. Es una frase interesante: en una lectura literal habla por supuesto de la calidad mobile de WebKit como navegador, así como también de un poderoso caso de negocio que está pensando más allá del escritorio. Pero como diseñadores, creo que a menudo damos una solución cómoda a este tipo de requerimientos explícitos, que nos permite compartimentar los problemas que tenemos ante nosotros. Podemos poner en cuarentena a la experiencia mobile en <a href="http://m.nytimes.com/">subdominios</a> <a href="http://webkit.dailykos.com/">separados</a>, espacios diferentes y alejados del "sitio no-iPhone". ¿Pero y después? ¿Un sitio para iPad? ¿Otro para el N90? ¿Realmente podemos comprometernos a soportar cada nuevo agente de usuario con su propia experiencia a medida? En algún punto, esto empieza a sentirse como un juego de suma cero. ¿Pero cómo podemos adaptarnos y adaptar a nuestros diseños?</p>
+
+		<h2>Un cimiento flexible</h2>
+		
+		<p>Consideremos un <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-flexible.html">diseño de ejemplo</a>. Construí una página simple para una revista hipotética; es un layout directo, de dos columnas, construído en una <a href="http://www.alistapart.com/articles/fluidgrids/">grilla fluída</a>, con algunas <a href="http://unstoppablerobotninja.com/entry/fluid-images">imágenes flexibles</a> desparramadas por ahí. Hace ya tiempo que soy defensor de los layouts no fijos, siempre sentí que tendrían más durabilidad porque eran agnósticos en su layout. Y eso es verdad hasta cierto punto: los diseños flexibles no asumen nada acerca del ancho de la ventana del navegador y se adaptan hermosamente a dispositivos que tienen modos horizontales y verticales.</p>
+
+		<div class="grid grid-16 text-center">
+			<a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-flexible.html">
+				<img src="img/f-img-default-wide.jpg" alt="">
+			</a>
+			<p class="image-caption">Las imágenes enormes son enormes. Nuestro layout, flexible como es, no responde bien a cambios de resolución o al tamaño de la vista.</p>
+		</div>
+
+		<p>Pero ningún diseño fluído ni fijo se escala sin problemas más allá del contexto para el cual fue pensado originalmente. El <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-flexible.html">diseño de ejemplo</a> se escala perfectamente cuando la ventana del navegador cambia su tamaño, pero aparecen puntos de tensión en las resoluciones más bajas. Cuando se observa en una vista menor de 800×600, la ilustración que está detrás del logo se ve cortada, el texto de navegación se acomoda de una manera impropia y las imágenes que están en la parte inferior se hacen demasiado compactas como para ser legibles. Y no sólo las menores resoluciones del espectro se ven afectadas: cuando se observa el diseño en una pantalla widescreen, las imágenes crecen a enormes tamaños, amontonando el contenido que las rodea.</p>
+		<p>Resumiendo, nuestro diseño flexible funciona lo suficientemente bien en el contexto centrado en la computadora de escritorio para el cual fue diseñado, pero no está optimizado para extenderse mucho más allá.</p>
+
+		<h2>Convirtiéndose en responsivo</h2>
+		<p>Recientemente, una disciplina emergente llamada “<dfn>arquitectura responsiva</dfn>” ha empezado a preguntarse cómo pueden los espacios físicos <em>responder</em> a la presencia de la gente que está pasando a través de ellos. A través de una combinación de robótica incrustada y materiales de tracción, los arquitectos están experimentando con <a href="http://robotecture.com/bubble/">instalaciones de arte</a> y <a href="http://vimeo.com/4661618">estructuras de paredes</a> que se curvan, doblan y expanden cuando la gente se acerca a ellas. Los sensores de movimiento se pueden juntar con sistemas de control del clima para ajustar la temperatura de un cuarto y su luz ambiente mientras se llena de gente. Las compañías ya han producido <a href="http://www.smartglassinternational.com/">“tecnología de vidrios inteligentes” que pueden opacarse automáticamente</a> cuando los ocupantes de un cuarto superan cierto nivel de densidad, dándoles una capa más de privacidad.</p>
+		<p>En su libro <cite>Interactive Architecture</cite>, Michael Fox y Miles Kemp describieron este acercamiento adaptativo como "un sistema de múltiples ciclos en el que uno entra en una conversación; <em>un intercambio de información continuo y constructivo</em>." El énfasis es mío, ya que pienso que es una sutil pero poderosa distinción: en vez de crear espacios inmutables e invariables que definen una experiencia particular, sugieren que los habitantes y la estructura pueden -y deben- influenciarse mutuamente.</p>
+		<p>Este es el camino a seguir. En lugar de hacer diseños a medida y desconectados para cada uno de los siempre crecientes dispositivos web, podemos tratarlos como facetas de una misma experiencia. Podemos diseñar para una experiencia de observación óptima, pero incrustar tecnologías basadas en estándares dentro de nuestros diseños para hacerlos no sólo más flexibles, sino más adaptables al medio que los renderiza. Resumiendo, necesitamos practicar un <em>diseño web responsivo</em>. ¿Pero cómo?</p>
+
+		<h2>Presentando a la media query</h2>
+		<p>Desde los días de <abbr title="Cascading Style Sheets level 2.1">CSS 2.1</abbr>, nuestras hojas de estilos han disfrutado algo así como una conciencia del dispositivo a través de los <a href="http://www.w3.org/TR/CSS21/media.html"><dfn>media types</dfn></a>. Si alguna vez has escrito <a href="http://www.alistapart.com/articles/goingtoprint/">una hoja de estilos para impresión</a>, ya estás familiarizado con el concepto:</p>
+		
+		<pre><code>&lt;link rel="stylesheet" type="text/css" href="core.css" media="screen" /&gt; 
+&lt;link rel="stylesheet" type="text/css" href="print.css" media="print" /&gt;
+		</code></pre>
+
+		<p>Esperando que estuvieramos diseñando más que bonitos formatos de páginas para imprimir, la especificación <abbr title="Cascading Style Sheets">CSS</abbr> nos suministró una grupo de <a href="http://www.w3.org/TR/CSS21/media.html#media-types">media types aceptables</a>, cada uno de ellos diseñado para apuntar a una clase específica de dispositivo listo para la web. Pero la mayoría de los navegadores y los dispositivos nunca se han adherido al espíritu de la especificación, dejando varios media types<a href="http://www.alistapart.com/articles/return-of-the-mobile-stylesheet">implementados imperfectamente</a>, o completamente ignorados.</p>
+		<p>Por suerte, el <abbr title="World Wide Web Consortium">W3C</abbr> creó las <a href="http://www.w3.org/TR/css3-mediaqueries/"><dfn>media queries</dfn></a> como parte de la especificación <abbr title="Cascading Style Sheets level 3">CSS3</abbr>, mejorando la promesa de los media types. Una media query nos permite apuntar no sólo a ciertas clases de dispositivos, sino realmente inspeccionar las características físicas del dispositivo que está renderizando nuestro trabajo. Por ejemplo, siguiendo el reciente crecimiento de WebKit mobile, las media queries se han convertido en una técnica del lado del cliente popular para entregar una hoja de estilos a medida para el iPhone, los teléfonos con Android y sus semejantes. Para hacerlo, podemos incorporar una query al atributo <code>media</code> de una hoja de estilos linkeada:</p>
+
+<pre><code>&lt;link rel="stylesheet" type="text/css" media="screen and (max-device-width: 480px)" href="shetland.css" /&gt;</code></pre>
+
+		<p>La query contiene dos componentes:</p>
+
+		<ol>
+			<li>un media type (<code>screen</code>), y</li>
+			<li>la consulta entre paréntesis, conteniendo una <dfn>característica</dfn> a inspeccionar (<code>max-device-width</code>) seguida por el valor al que apuntamos (<code>480px</code>).</li>
+		</ol>
+
+		<p>En otras palabras, le estamos preguntando al dispositivo si su resolución horizontal (<code>max-device-width</code>) es igual o menor que <code>480px</code>. Si la pregunta pasa -en otras palabras, si estamos viendo nuestro trabajo en un dispositivo con una pantalla pequeña como el iPhone- entonces el dispositivo cargará <code>shetland.css</code>. De lo contrario, el <code>link</code> es completamente ignorado.</p>
+		<p>En el pasado, los diseñadores han experimentado con layouts conscientes de la resolución, dependiendo generalmente de soluciones en <abbr title="JavaScript">JS</abbr> como <a href="http://www.themaninblue.com/experiment/ResolutionLayout/">el excelente script de Cameron Adams</a>. Pero la especificación de media query provee <a href="http://www.w3.org/TR/css3-mediaqueries/#media1">una serie de características del medio</a> que se extienden mucho más allá de la resolución de la pantalla, ensanchando el alcance de lo que podemos testear con nuestras queries. Lo que es mejor, puedes testear múltiples valores de las propiedades en una sola query, encadenándolos con la palabar clave <code>and</code>:</p>
+
+<pre><code>&lt;link rel="stylesheet" type="text/css" media="screen and (max-device-width: 480px) and (resolution: 163dpi)" href="shetland.css" /&gt;</code></pre>
+
+		<p>Además, no estamos limitados a incorporar las media queries en el tag <code>link</code>. Podemos incluírlas en nuestro <abbr title="Cascading Style Sheets">CSS</abbr> como parte de una regla <code>@media</code>:</p>
+
+<pre><code>@media screen and (max-device-width: 480px) {
+  .column {
+    float: none;
+  }
+}</code></pre>
+
+<p>O como parte de una directiva <code>@import</code>:</p>
+
+<pre><code>@import url("shetland.css") screen and (max-device-width: 480px);</code></pre>
+
+<p>Y en cada caso, el efecto es el mismo: si el dispositivo pasa el test planteado por nuestra media query, el <abbr title="Cascading Style Sheets">CSS</abbr> que corresponda es aplicado a nuestro código. Las media queries son, en resumen, <a href="http://msdn.microsoft.com/en-us/library/ms537512(VS.85).aspx">comentarios condicionales</a> para todos. En lugar de apuntarle a una versión específica de un navegador, podemos corregir quirúrgicamente problemas en nuestro layout cuando se escala más allá de su resolución inicial e ideal.</p>
+
+<h2>Adaptarse, responder y más</h2>
+
+<p>Llevemos nuestra atención a las imágenes en la base de nuestra página. En su layout por defecto, el <abbr title="Cascading Style Sheets">CSS</abbr> está así:</p>
+
+<pre><code>.figure {
+  float: left;
+  margin: 0 3.317535545023696682% 1.5em 0;   /* 21px / 633px */
+  width: 31.121642969984202211%;             /* 197px / 633px */
+}
+
+li#f-mycroft,
+li#f-winter {
+  margin-right: 0;
+}
+</code></pre>
+
+<p>Omití algunas propiedades tipográficos para enfocarnos en el layout: cada elemento <code>.figure</code> tiene un tamaño de aproximadamente un tercio de la columna que lo contiene, con el margen derecho en cero para las dos imágenes al final de cada fila (<code>li#f-mycroft, li#f-winter</code>). Y esto funciona bastante bien, hasta que la vista es o notablemente más pequeña o más ancha que nuestro diseño original. Con las media queries, podemos aplicar arreglos específicos para una resolución, adaptando nuestro diseño para responder mejor a los cambios en la pantalla.</p>
+
+<p>Antes que nada, linealicemos nuestra página una vez que la vista cae por debajo de cierta resolución de, digamos, <code>600px</code>. Así que al final de nuestra hoja de estilos, creemos un nuevo bloque <code>@media</code>, de la siguiente manera:</p>
+
+<pre><code>@media screen and (max-width: 600px) {
+  .mast,
+  .intro,
+  .main,
+  .footer {
+    float: none;
+    width: auto;
+  }
+}</code></pre>
+
+<p>Si observas <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-linearize.html">nuestra página actualizada</a> en un navegador moderno y dreduces el tamaño de tu ventana por debajo de los <code>600px</code>, la media query desactivará los floats de los principales elementos del diseño, apilando cada bloque encima del otro en el flujo del documento. Entonces nuestro diseño miniaturizado está tomando una bella forma, pero las imágenes todavía no se reducen tan inteligentemente. Si introducimos otra media query, podemos alterar su layout de manera consecuente:</p>
+
+<pre><code>@media screen and (max-width: 400px) {
+
+  .figure, li#f-mycroft {
+    margin-right: 3.317535545023696682%;    /* 21px / 633px */
+    width: 48.341232227488151658%;          /* 306px / 633px */
+  }
+
+  li#f-watson, li#f-moriarty {
+	margin-right: 0;
+  }
+  
+}</code></pre>
+
+		<p>No le des importancia a los porcentajes ilegibles; simplemente estamos recalculando los anchos de la <a href="http://www.alistapart.com/articles/fluidgrids/">grilla fluida</a> para tener en cuenta el nuevo layout linearizado. En otras palabras, estamos <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-mini.html">moviéndonos de un layout de tres columnas a uno de dos columnas</a> cuando el ancho de la vista cae por debajo de los <code>400px</code>, haciendo más prominentes a las imágenes.</p>
+		
+		<div class="grid grid-16 text-center">
+			<a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-mini.html">
+				<img src="img/f-img-narrow.jpg" alt="">
+			</a>
+			<p class="image-caption">Nuestras figuras pueden cambiar su estructura de manera responsiva <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-mini.html">para adaptarse mejor a pantallas más pequeñas</a>.</p>
+		</div>
+		
+		<p>Podemos utilizar el mismo enfoque para las pantallas widescreen. Para resolucionas más grandes, podemos adoptar un tratamiento de seis columnas para nuestras imágenes, situándolas <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-larger.html">todas en la misma fila</a>:</p>
+
+<pre class="bump"><code>@media screen and (min-width: 1300px) {
+
+  .figure, li#f-mycroft {
+    margin-right: 3.317535545023696682%;    /* 21px / 633px */
+    width: 13.902053712480252764%;          /* 88px / 633px */
+  }
+  
+}</code></pre>
+
+		<p>Ahora nuestras imágenes están trabajando hermosamente <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-larger.html">en los dos extremos del espectro de resoluciones</a>, optimizando su layout a los cambios en el ancho de las ventanas y en las resoluciones de los dispositivos.</p>
+
+		<div class="grid grid-16 text-center">
+			<a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-larger.html">
+				<img src="img/f-img-widescreen.jpg" alt="">
+			</a>
+			<p class="image-caption">Especificando un <code>min-width</code> más ancho en una nueva media query, podemos mover a nuestras imágenes en <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-larger.html">un layout de una sola fila</a>.</p>
+		</div>
+		
+		<p>Pero esto es sólo el comienzo. Trabajando dentro de las media queries que incrustamos en nuestro <abbr title="Cascading Style Sheets">CSS</abbr>, podemos alterar mucho más que la colocación de unas pocas imágenes: podemos <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-FINAL.html">introducir nuevos layouts alternativos</a> ajustados para cada rango de resolución, quizás haciendo la navegación más prominente en una vista de pantalla ancha o reposicionándola encima del logo en pantallas más pequeñas.</p>
+		
+		<div class="grid grid-16 text-center">
+			<a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-FINAL.html">
+				<img src="img/f-nav-narrow.jpg" alt="">
+			</a>
+			<p class="image-caption">Diseñando responsivamente, no sólo podemos linearizar nuestro contenido en los dispositivos más pequeños, sino también <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-site-FINAL.html">optimizar su presentación a lo largo de un amplio rango de pantallas</a>.</p>
+		</div>
+		
+		<p>Pero un diseño responsivo no está limitado a cambios en el layout. Las media queries nos permiten practicar ajustes increíblemente precisos cuando nuestras páginas cambian de forma: podemos aumentar el área clickeable de nuestros links para pantallas más pequeñas, para cumplir mejor con la <a href="http://es.wikipedia.org/wiki/Ley_de_Fitts">Ley de Fitts</a> en los dispositivos táctiles; mostrar o esconder elementos de manera selectiva que pueden mejorar la navegación de una página; podemos incluso practicar una <a href="http://www.alistapart.com/d/responsive-web-design/ex/ex-article.html">tipografía responsiva</a> que gradualmente altere el tamaño y espaciado de nuestro texto, optimizando la experiencia de lectura para la pantalla correspondiente.</p>
+		
+		<h3>Algunas notas técnicas</h3>
+		<p>Debe mencionarse que las media queries disfrutan de un soporte increíblemente robusto entre los navegadores modernos. Todos los navegadores de escritorio como Safari 3+, Chrome, Firefox 3.5+ y Opera 7+ parsean nativamente las media queries, como también lo hacen navegadores mobile más recientes como Opera Mobile y WebKit mobile. Por supuesto, las versiones más viejas de esos navegadores de escritorio no soportan media queries. Y aunque Microsoft se ha compromeitod para <a href="http://ie.microsoft.com/testdrive/HTML5/85CSS3_MediaQueries/Default.html" title="Internet Explorer version 9">dar soporte a las media queries en el <abbr title="Internet Explorer version 9">IE9</abbr></a>, el Internet Explorer actualmente no ofrece una implementación nativa.</p>
+		<p>Sin embargo, si estás interesado en implementar compatibilidad con los navegadores más viejos, hay un revestimiento teñido en JavaScript:</p>
+
+		<ul>
+			<li><a href="http://plugins.jquery.com/project/MediaQueries">Un plugin de jQuery</a> de 2007 ofrece un soporte limitado de las media queries, implementando sólo las propiedades <code>min-width</code> y <code>max-width</code> cuando son adjuntadas a elementos <code>link</code> separados.</li>
+			<li>Recientemente, <a href="http://code.google.com/p/css3-mediaqueries-js/">css3-mediaqueries.js</a> fue lanzado, una librería que promete “lograr que <abbr title="Internet Explorer version 5">IE 5</abbr>+, Firefox 1+ y Safari 2 analicen, testeen y apliquen las Media Queries de <abbr title="Cascading Style Sheets level 3">CSS3</abbr>” cuando son incluídas a través de los bloques <code>@media</code>. Aunque está en una versión 1.0, lo he encontrado bastante robusto y planeo observar su desarrollo.</li>
+		</ul>
+
+		<p>Pero es perfectamente entendible que no te atraiga usar JavaScript. Sin embargo, eso fortalecerá el caso de que quieras construir tu estructura encima de una <a href="http://www.alistapart.com/articles/fluidgrids/">grilla flexible</a>, asegurandote de que tu diseño disfruta alguna flexibilidad en los dispositivos y navegadores que no ven las media queries.</p>
+
+		<h2>El camino a seguir</h2>
+		<p>Las grillas fluídas, las imágenes flexibles y las media queries son los tres ingredientes técnicos para un diseño web responsivo, pero también se requiere de una forma diferente de pensar. En lugar de poner en cuarentena nuestro contenido en diferentes experiencias, específicas para cada dispositivo, podemos usar las media queries para realzar progresivamente nuestro trabajo en los diferentes contextos de vista. Eso no significa que no hay casos de negocio en los que sea preferible realizar sitios para dispositivos específicos; por ejemplo, si los objetivos del usuario para tu sitio mobile tienen un alcance limitado con respecto al equivalente de escritorio, entonces servir contenido diferente para cada uno puede ser el mejor enfoque.</p>
+		<p>Pero ese tipo de pensamiento del diseño no tiene por qué ser la forma de pensar por defecto. Ahora más que nunca, estamos diseñando trabajos destinados a ser vistos en una gran gama de experiencias diferentes. El diseño web responsivo nos ofrece un camino a seguir, permitiéndonos finalmente "diseñar para el flujo y reflujo de las cosas".</p>
+		
+		<p>Traducido con el permiso de <a href="http://www.alistapart.com/">A List Apart Magazine</a> y el autor.</p>
+		<p>Translated with the permission of <a href="http://www.alistapart.com/">A List Apart Magazine</a> and the author[s].</p>
+
+		<h3>Traducciones</h3>
+		<ul>
+			<li><a href="http://www.italianalistapart.com/articoli/17-numero-7-8-giugno-2010/71-web-design-reattivo">Italiano</a> (italianalistapart.com)</li>
+			<li><a href="http://gobanclub.net/2010/11/17/responsive_webdesign_ethan_marcotte_trad_fr/">Francés</a> (gobanclub.net) </li>
+			<li><a href="http://diseñowebresponsivo.com.ar">Español</a></li>
+		</ul>
+
+		<ul>
+			<li>Ilustraciones por <a href="http://www.alistapart.com/authors/c/kevincornell">Kevin Cornell</a></li> 
+		</ul>
+
+		<h2>Compartir</h2>
+		<p>
+		<a href="http://www.facebook.com/sharer.php?u=http://diseñowebresponsivo.com.ar&amp;t=Diseño+Web+Responsivo+(Responsive+Web+Design)"><img src="img/facebook.gif" alt="Facebook icon"></a>
+		<a href="http://del.icio.us/post?url=http://diseñowebresponsivo.com.ar&amp;title=Diseño+Web+Responsivo+(Responsive+Web+Design)"><img src="img/delicious.gif" alt="Delicious icon"></a>
+		<a href="http://twitter.com/?status=Diseño+Web+Responsivo+(Responsive+Web+Design):%20http://diseñowebresponsivo.com.ar"><img src="img/twitter.gif" alt="Twitter icon"></a>
+		</p>
+
+		<h2>Acerca del Autor</h2>
+			<p>
+				<img src="img/ethan_marcotte.jpg" alt="Ethan Marcotte" class="left">
+				<a href="http://ethanmarcotte.com/">Ethan Marcotte</a> es un diseñador y desarrollador web a quien le interesa profundamente el diseño hermoso, el código elegante, y la intersección de los dos. A través de los años, Ethan ha disfrutado de trabajar con clientes como el Sundance Film Festival, Stanford University, <cite>New&nbsp;York Magazine</cite> y The Today Show. Insulta profusamente <a href="http://twitter.com/beep">en Twitter</a>, y le gustaría ser un <a href="http://unstoppablerobotninja.com/">robot ninja imparable</a> cuando crezca.
+			</p>
+			
+		<h2>Acerca del Traductor</h2>
+			<p>
+				<img src="img/marcelo_mazza.jpg" alt="Marcelo Mazza" class="left">
+				Mi nombre es <a href="http://marcelo-mazza.com.ar/">Marcelo Mazza</a> y soy un diseñador y desarrollador web (en vías de desarrollo, ja) de Buenos Aires, Argentina. Seguime <a href="http://twitter.com/mazzamarcelo">en Twitter</a> si querés. Cualquier consulta o aporte podés hacerlo a contacto@marcelo-mazza.com.ar.
+			</p>
+			
+		<p>Esta página fue armada en poquísimos minutos gracias a <a href="http://csswizardry.com/inuitcss/" title="Inuitcss">Inuitcss</a>.</p>
+
+		<p>
+			<span class="issn">ISSN: <b>1534-0295</b></span>
+			<span class="copyright"><a href="http://www.alistapart.com/copyright/" rel="license">Copyright ©</a> <span class="years">1998-2011</span> A List Apart Magazine and the authors.</span>			
+		</p>
+		
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-23683628-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>	
+</body>
+</html>
