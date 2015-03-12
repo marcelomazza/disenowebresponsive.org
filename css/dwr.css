@@ -1,0 +1,9 @@
+@media (min-width: 960px) {
+	.signup-form {
+		position: fixed;
+		right: 20px;
+		bottom: 20px;
+		background: red;
+		box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+	}
+}
